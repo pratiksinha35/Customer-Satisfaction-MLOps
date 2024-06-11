@@ -21,7 +21,9 @@ def evaluate_model(
     Evaluates the model on the ingested data
     
     Args:
-        df: the ingested data
+        model: the trained model
+        X_test: testing data
+        y_test: testing label
     '''
     prediction = model.predict(X_test)
     
