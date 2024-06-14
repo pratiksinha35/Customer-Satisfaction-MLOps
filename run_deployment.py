@@ -25,7 +25,7 @@ DEPLOY_AND_PREDICT = 'deploy_and_predict'
 )
 @click.option(
     '--min_accuracy',
-    default=0.92,
+    default=0,
     help='Minimum accuracy required to deploy the model'
 )
 

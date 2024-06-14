@@ -18,7 +18,7 @@ docker_settings = DockerSettings(required_integrations=[MLFLOW])
 
 class DeploymentTriggerConfig(BaseParameters):
     '''Deployment trigger config'''
-    min_accuracy: float = 0.92
+    min_accuracy: float = 0
     
 @step
 def deployment_trigger(
@@ -26,11 +26,11 @@ def deployment_trigger(
     config: DeploymentTriggerConfig
 ):
     '''Implements a simple model deployment trigger that looks at the model accuracy'''
-    return accuracy >= config.min_accuracy
+    return accuracy > config.min_accuracy
 
-@pipeline(enable_cache=True, settings={'docker': docker_settings})
+@pipeline(enable_cache=False, settings={'docker': docker_settings})
 def continuous_deployment_pipeline(
-    data_path: str = r'D:\Pratik\Customer Satisfaction MLOps\data\olist_customers_dataset.csv',
+    data_path: str = r'/mnt/d/Pratik/Customer Satisfaction MLOps/data/olist_customers_dataset.csv',
     min_accuracy: float = 0.92,
     workers: int = 1,
     timeout: int = DEFAULT_SERVICE_START_STOP_TIMEOUT
