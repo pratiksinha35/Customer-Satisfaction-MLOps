@@ -1,6 +1,6 @@
 from typing import cast
 
-from pipelines.deployment_pipeline import continuous_deployment_pipeline
+from pipelines.deployment_pipeline import continuous_deployment_pipeline, inference_pipeline
 import click #type: ignore
 from rich import print # type: ignore
 from zenml.integrations.mlflow.mlflow_utils import get_tracking_uri # type: ignore
@@ -41,7 +41,10 @@ def run_deployment(config: str, min_accuracy: float):
         )
     if predict:
         pass
-        # inference_pipeline()
+        inference_pipeline(
+            pipeline_name='continuous_deployment_pipeline',
+            pipeline_step_name='mlflow_model_deployer_step'
+        )
         
     # fetch existing services with same pipeline name, step name and model name
     existing_services = mlflow_model_deployer_component.find_model_server(
